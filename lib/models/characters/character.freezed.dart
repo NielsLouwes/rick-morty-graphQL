@@ -25,6 +25,8 @@ mixin _$Character {
   String? get image => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   String? get species => throw _privateConstructorUsedError;
+  Location? get location => throw _privateConstructorUsedError;
+  Episode? get episode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +44,12 @@ abstract class $CharacterCopyWith<$Res> {
       String? name,
       String? image,
       String? status,
-      String? species});
+      String? species,
+      Location? location,
+      Episode? episode});
+
+  $LocationCopyWith<$Res>? get location;
+  $EpisodeCopyWith<$Res>? get episode;
 }
 
 /// @nodoc
@@ -63,6 +70,8 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
     Object? image = freezed,
     Object? status = freezed,
     Object? species = freezed,
+    Object? location = freezed,
+    Object? episode = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -85,7 +94,39 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
           ? _value.species
           : species // ignore: cast_nullable_to_non_nullable
               as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location?,
+      episode: freezed == episode
+          ? _value.episode
+          : episode // ignore: cast_nullable_to_non_nullable
+              as Episode?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationCopyWith<$Res>? get location {
+    if (_value.location == null) {
+      return null;
+    }
+
+    return $LocationCopyWith<$Res>(_value.location!, (value) {
+      return _then(_value.copyWith(location: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $EpisodeCopyWith<$Res>? get episode {
+    if (_value.episode == null) {
+      return null;
+    }
+
+    return $EpisodeCopyWith<$Res>(_value.episode!, (value) {
+      return _then(_value.copyWith(episode: value) as $Val);
+    });
   }
 }
 
@@ -101,7 +142,14 @@ abstract class _$$_CharacterCopyWith<$Res> implements $CharacterCopyWith<$Res> {
       String? name,
       String? image,
       String? status,
-      String? species});
+      String? species,
+      Location? location,
+      Episode? episode});
+
+  @override
+  $LocationCopyWith<$Res>? get location;
+  @override
+  $EpisodeCopyWith<$Res>? get episode;
 }
 
 /// @nodoc
@@ -120,6 +168,8 @@ class __$$_CharacterCopyWithImpl<$Res>
     Object? image = freezed,
     Object? status = freezed,
     Object? species = freezed,
+    Object? location = freezed,
+    Object? episode = freezed,
   }) {
     return _then(_$_Character(
       id: freezed == id
@@ -142,6 +192,14 @@ class __$$_CharacterCopyWithImpl<$Res>
           ? _value.species
           : species // ignore: cast_nullable_to_non_nullable
               as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location?,
+      episode: freezed == episode
+          ? _value.episode
+          : episode // ignore: cast_nullable_to_non_nullable
+              as Episode?,
     ));
   }
 }
@@ -149,7 +207,14 @@ class __$$_CharacterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Character implements _Character {
-  _$_Character({this.id, this.name, this.image, this.status, this.species});
+  _$_Character(
+      {this.id,
+      this.name,
+      this.image,
+      this.status,
+      this.species,
+      this.location,
+      this.episode});
 
   factory _$_Character.fromJson(Map<String, dynamic> json) =>
       _$$_CharacterFromJson(json);
@@ -164,10 +229,14 @@ class _$_Character implements _Character {
   final String? status;
   @override
   final String? species;
+  @override
+  final Location? location;
+  @override
+  final Episode? episode;
 
   @override
   String toString() {
-    return 'Character(id: $id, name: $name, image: $image, status: $status, species: $species)';
+    return 'Character(id: $id, name: $name, image: $image, status: $status, species: $species, location: $location, episode: $episode)';
   }
 
   @override
@@ -179,13 +248,16 @@ class _$_Character implements _Character {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.species, species) || other.species == species));
+            (identical(other.species, species) || other.species == species) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.episode, episode) || other.episode == episode));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, image, status, species);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, image, status, species, location, episode);
 
   @JsonKey(ignore: true)
   @override
@@ -207,7 +279,9 @@ abstract class _Character implements Character {
       final String? name,
       final String? image,
       final String? status,
-      final String? species}) = _$_Character;
+      final String? species,
+      final Location? location,
+      final Episode? episode}) = _$_Character;
 
   factory _Character.fromJson(Map<String, dynamic> json) =
       _$_Character.fromJson;
@@ -223,7 +297,275 @@ abstract class _Character implements Character {
   @override
   String? get species;
   @override
+  Location? get location;
+  @override
+  Episode? get episode;
+  @override
   @JsonKey(ignore: true)
   _$$_CharacterCopyWith<_$_Character> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Location _$LocationFromJson(Map<String, dynamic> json) {
+  return _Location.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Location {
+  String? get name => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $LocationCopyWith<Location> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LocationCopyWith<$Res> {
+  factory $LocationCopyWith(Location value, $Res Function(Location) then) =
+      _$LocationCopyWithImpl<$Res, Location>;
+  @useResult
+  $Res call({String? name});
+}
+
+/// @nodoc
+class _$LocationCopyWithImpl<$Res, $Val extends Location>
+    implements $LocationCopyWith<$Res> {
+  _$LocationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
+  factory _$$_LocationCopyWith(
+          _$_Location value, $Res Function(_$_Location) then) =
+      __$$_LocationCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? name});
+}
+
+/// @nodoc
+class __$$_LocationCopyWithImpl<$Res>
+    extends _$LocationCopyWithImpl<$Res, _$_Location>
+    implements _$$_LocationCopyWith<$Res> {
+  __$$_LocationCopyWithImpl(
+      _$_Location _value, $Res Function(_$_Location) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+  }) {
+    return _then(_$_Location(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Location implements _Location {
+  _$_Location({this.name});
+
+  factory _$_Location.fromJson(Map<String, dynamic> json) =>
+      _$$_LocationFromJson(json);
+
+  @override
+  final String? name;
+
+  @override
+  String toString() {
+    return 'Location(name: $name)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Location &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_LocationCopyWith<_$_Location> get copyWith =>
+      __$$_LocationCopyWithImpl<_$_Location>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_LocationToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Location implements Location {
+  factory _Location({final String? name}) = _$_Location;
+
+  factory _Location.fromJson(Map<String, dynamic> json) = _$_Location.fromJson;
+
+  @override
+  String? get name;
+  @override
+  @JsonKey(ignore: true)
+  _$$_LocationCopyWith<_$_Location> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Episode _$EpisodeFromJson(Map<String, dynamic> json) {
+  return _Episode.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Episode {
+  String? get name => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $EpisodeCopyWith<Episode> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $EpisodeCopyWith<$Res> {
+  factory $EpisodeCopyWith(Episode value, $Res Function(Episode) then) =
+      _$EpisodeCopyWithImpl<$Res, Episode>;
+  @useResult
+  $Res call({String? name});
+}
+
+/// @nodoc
+class _$EpisodeCopyWithImpl<$Res, $Val extends Episode>
+    implements $EpisodeCopyWith<$Res> {
+  _$EpisodeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_EpisodeCopyWith<$Res> implements $EpisodeCopyWith<$Res> {
+  factory _$$_EpisodeCopyWith(
+          _$_Episode value, $Res Function(_$_Episode) then) =
+      __$$_EpisodeCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? name});
+}
+
+/// @nodoc
+class __$$_EpisodeCopyWithImpl<$Res>
+    extends _$EpisodeCopyWithImpl<$Res, _$_Episode>
+    implements _$$_EpisodeCopyWith<$Res> {
+  __$$_EpisodeCopyWithImpl(_$_Episode _value, $Res Function(_$_Episode) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+  }) {
+    return _then(_$_Episode(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Episode implements _Episode {
+  _$_Episode({this.name});
+
+  factory _$_Episode.fromJson(Map<String, dynamic> json) =>
+      _$$_EpisodeFromJson(json);
+
+  @override
+  final String? name;
+
+  @override
+  String toString() {
+    return 'Episode(name: $name)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Episode &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_EpisodeCopyWith<_$_Episode> get copyWith =>
+      __$$_EpisodeCopyWithImpl<_$_Episode>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_EpisodeToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Episode implements Episode {
+  factory _Episode({final String? name}) = _$_Episode;
+
+  factory _Episode.fromJson(Map<String, dynamic> json) = _$_Episode.fromJson;
+
+  @override
+  String? get name;
+  @override
+  @JsonKey(ignore: true)
+  _$$_EpisodeCopyWith<_$_Episode> get copyWith =>
       throw _privateConstructorUsedError;
 }
