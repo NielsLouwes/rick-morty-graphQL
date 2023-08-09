@@ -25,8 +25,9 @@ mixin _$Character {
   String? get image => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   String? get species => throw _privateConstructorUsedError;
-  Location? get location => throw _privateConstructorUsedError;
-  Episode? get episode => throw _privateConstructorUsedError;
+  Location? get location =>
+      throw _privateConstructorUsedError; // last seen = location.name
+  List<Episode>? get episode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,10 +47,9 @@ abstract class $CharacterCopyWith<$Res> {
       String? status,
       String? species,
       Location? location,
-      Episode? episode});
+      List<Episode>? episode});
 
   $LocationCopyWith<$Res>? get location;
-  $EpisodeCopyWith<$Res>? get episode;
 }
 
 /// @nodoc
@@ -101,7 +101,7 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
       episode: freezed == episode
           ? _value.episode
           : episode // ignore: cast_nullable_to_non_nullable
-              as Episode?,
+              as List<Episode>?,
     ) as $Val);
   }
 
@@ -114,18 +114,6 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
 
     return $LocationCopyWith<$Res>(_value.location!, (value) {
       return _then(_value.copyWith(location: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $EpisodeCopyWith<$Res>? get episode {
-    if (_value.episode == null) {
-      return null;
-    }
-
-    return $EpisodeCopyWith<$Res>(_value.episode!, (value) {
-      return _then(_value.copyWith(episode: value) as $Val);
     });
   }
 }
@@ -144,12 +132,10 @@ abstract class _$$_CharacterCopyWith<$Res> implements $CharacterCopyWith<$Res> {
       String? status,
       String? species,
       Location? location,
-      Episode? episode});
+      List<Episode>? episode});
 
   @override
   $LocationCopyWith<$Res>? get location;
-  @override
-  $EpisodeCopyWith<$Res>? get episode;
 }
 
 /// @nodoc
@@ -197,9 +183,9 @@ class __$$_CharacterCopyWithImpl<$Res>
           : location // ignore: cast_nullable_to_non_nullable
               as Location?,
       episode: freezed == episode
-          ? _value.episode
+          ? _value._episode
           : episode // ignore: cast_nullable_to_non_nullable
-              as Episode?,
+              as List<Episode>?,
     ));
   }
 }
@@ -214,7 +200,8 @@ class _$_Character implements _Character {
       this.status,
       this.species,
       this.location,
-      this.episode});
+      final List<Episode>? episode})
+      : _episode = episode;
 
   factory _$_Character.fromJson(Map<String, dynamic> json) =>
       _$$_CharacterFromJson(json);
@@ -231,8 +218,17 @@ class _$_Character implements _Character {
   final String? species;
   @override
   final Location? location;
+// last seen = location.name
+  final List<Episode>? _episode;
+// last seen = location.name
   @override
-  final Episode? episode;
+  List<Episode>? get episode {
+    final value = _episode;
+    if (value == null) return null;
+    if (_episode is EqualUnmodifiableListView) return _episode;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
@@ -251,13 +247,13 @@ class _$_Character implements _Character {
             (identical(other.species, species) || other.species == species) &&
             (identical(other.location, location) ||
                 other.location == location) &&
-            (identical(other.episode, episode) || other.episode == episode));
+            const DeepCollectionEquality().equals(other._episode, _episode));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, image, status, species, location, episode);
+  int get hashCode => Object.hash(runtimeType, id, name, image, status, species,
+      location, const DeepCollectionEquality().hash(_episode));
 
   @JsonKey(ignore: true)
   @override
@@ -281,7 +277,7 @@ abstract class _Character implements Character {
       final String? status,
       final String? species,
       final Location? location,
-      final Episode? episode}) = _$_Character;
+      final List<Episode>? episode}) = _$_Character;
 
   factory _Character.fromJson(Map<String, dynamic> json) =
       _$_Character.fromJson;
@@ -298,8 +294,8 @@ abstract class _Character implements Character {
   String? get species;
   @override
   Location? get location;
-  @override
-  Episode? get episode;
+  @override // last seen = location.name
+  List<Episode>? get episode;
   @override
   @JsonKey(ignore: true)
   _$$_CharacterCopyWith<_$_Character> get copyWith =>

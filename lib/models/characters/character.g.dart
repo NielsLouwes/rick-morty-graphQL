@@ -15,9 +15,9 @@ _$_Character _$$_CharacterFromJson(Map<String, dynamic> json) => _$_Character(
       location: json['location'] == null
           ? null
           : Location.fromJson(json['location'] as Map<String, dynamic>),
-      episode: json['episode'] == null
-          ? null
-          : Episode.fromJson(json['episode'] as Map<String, dynamic>),
+      episode: (json['episode'] as List<dynamic>?)
+          ?.map((e) => Episode.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_CharacterToJson(_$_Character instance) =>

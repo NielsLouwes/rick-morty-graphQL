@@ -11,8 +11,8 @@ class Character with _$Character {
     String? image,
     String? status,
     String? species,
-    Location? location, // last seen = locaion.name
-    Episode? episode, // first seen in
+    Location? location, // last seen = location.name
+    List<Episode>? episode, // first seen in
   }) = _Character;
 
   factory Character.fromJson(Map<String, dynamic> json) =>

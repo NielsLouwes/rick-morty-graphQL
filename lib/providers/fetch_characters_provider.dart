@@ -30,6 +30,12 @@ class FetchCharactersProvider extends StateNotifier<FetchCharactersState> {
                     gender
                     image
                     status
+                    location {
+                      name
+                    }
+                     episode {
+                      name
+                    }
                   }
                 }
               }
