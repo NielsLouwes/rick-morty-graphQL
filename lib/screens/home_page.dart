@@ -8,6 +8,32 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Widget returnStatusCircle(status) {
+      if (status == 'Alive') {
+        return const Icon(
+          Icons.circle,
+          color: Colors.green,
+          size: 14,
+        );
+      }
+      if (status == 'unknown') {
+        return const Icon(
+          Icons.circle,
+          color: Colors.grey,
+          size: 14,
+        );
+      }
+      if (status == 'Dead') {
+        return const Icon(
+          Icons.circle,
+          color: Colors.red,
+          size: 14,
+        );
+      }
+
+      return const SizedBox.shrink();
+    }
+
     return Theme(
       data: Theme.of(context).copyWith(
         textTheme: GoogleFonts.robotoTextTheme(
@@ -33,22 +59,26 @@ class HomePage extends ConsumerWidget {
                         color: const Color.fromARGB(255, 69, 68, 68),
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10), // Adjust as needed
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Image to the left
-                              Image.network(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Image to the left
+                            ClipRRect(
+                              borderRadius:
+                                  BorderRadius.circular(10), // Image border
+                              child: Image.network(
                                 character.image!,
-                                height: 150,
+                                height: 175,
                                 fit: BoxFit.cover,
-                                width: 150, // Adjust the width as needed
+                                width: 160, // Adjust the width as needed
                               ),
-                              // Adding a little spacing between image and text
-                              const SizedBox(width: 10),
-                              // Text content to the right of the image
-                              Expanded(
+                            ),
+                            // Adding a little spacing between image and text
+                            const SizedBox(width: 10),
+                            // Text content to the right of the image
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -59,12 +89,20 @@ class HomePage extends ConsumerWidget {
                                           fontSize: 22,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Text(
-                                      '${character.status!} - ${character.species}',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
+                                    Row(
+                                      children: [
+                                        returnStatusCircle(character.status),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          '${character.status!} - ${character.species}',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(height: 10),
                                     const Text(
@@ -99,8 +137,8 @@ class HomePage extends ConsumerWidget {
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ))
                   .toList(),
