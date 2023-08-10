@@ -5,7 +5,6 @@ class FiltersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return const Text('FIlters Screen')
+    return const Text('FIlters Screen');
   }
 }

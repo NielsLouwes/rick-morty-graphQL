@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:graphql_example/screens/home_page.dart';
+import 'package:graphql_example/screens/main_page.dart';
 
 void main() {
   runApp(const ProviderScope(child: RickAndMorty()));
@@ -11,6 +11,6 @@ class RickAndMorty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    return MaterialApp(home: MainPage());
   }
 }
