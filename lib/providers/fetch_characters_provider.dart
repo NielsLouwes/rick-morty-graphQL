@@ -43,6 +43,7 @@ class FetchCharactersProvider extends StateNotifier<FetchCharactersState> {
           });
       List<dynamic> responseData =
           response.data['data']['characters']['results'];
+
       state = FetchCharactersState.fetched(
           responseData.map((e) => Character.fromJson(e)).toList());
     } on DioException catch (e) {

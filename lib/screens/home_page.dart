@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql_example/providers/fetch_characters_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_example/widgets/character_info.dart';
+import 'package:graphql_example/widgets/character_search_delegate.dart';
+import 'package:graphql_example/models/characters/character.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -18,8 +20,23 @@ class HomePage extends ConsumerWidget {
       child: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: const Text('Characters'),
+          title: const Text('Characters', style: TextStyle(fontSize: 28)),
           centerTitle: true,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                final characters = ref.read(fetchCharactersProvider).maybeWhen(
+                      fetched: (characters) => characters,
+                      orElse: () => <Character>[],
+                    );
+                showSearch(
+                  context: context,
+                  delegate: CharacterSearchDelegate(characters),
+                );
+              },
+            ),
+          ],
         ),
         body: ref.watch(fetchCharactersProvider).maybeWhen(
           fetching: () {
@@ -27,7 +44,7 @@ class HomePage extends ConsumerWidget {
               child: CircularProgressIndicator(),
             );
           },
-          fetched: (characters) {
+          fetched: (List<Character> characters) {
             return ListView(
               children: characters
                   .map((character) => Card(
@@ -37,20 +54,16 @@ class HomePage extends ConsumerWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Image to the left
                             ClipRRect(
-                              borderRadius:
-                                  BorderRadius.circular(10), // Image border
+                              borderRadius: BorderRadius.circular(10),
                               child: Image.network(
                                 character.image!,
                                 height: 175,
                                 fit: BoxFit.cover,
-                                width: 160, // Adjust the width as needed
+                                width: 160,
                               ),
                             ),
-                            // Adding a little spacing between image and text
                             const SizedBox(width: 10),
-                            // Text content to the right of the image
                             CharacterInfo(
                               character: character,
                             )
@@ -64,6 +77,9 @@ class HomePage extends ConsumerWidget {
             return Container();
           },
         ),
+        bottomNavigationBar: BottomNavigationBar(items: [
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Filters'),
+        ]),
       ),
     );
   }
